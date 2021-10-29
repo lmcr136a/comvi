@@ -1,0 +1,1 @@
+git clone https://github.com/lmcr136a/comvi.git 실행 고고
