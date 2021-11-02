@@ -1,0 +1,24 @@
+data:
+  dir: # location of the dataset directory
+  # Sampling options for dataloader
+  train:
+    augmentation:
+      # if there is neccesary to optimize augmentation, we will use this
+    shuffle: True
+    batch_size: 1
+    n_workers: 1
+  val:
+    batch_size: 1
+    n_workers: 1
+  test:
+    batch_size: 1
+    n_workers: 1
+
+network:
+  backbone: # name of the backbone network (VGG16, ResNet50, etc)
+
+run:
+  optimizer:
+    name: 'adam'
+    lr: 5e-5
+  scheduler: # use this if neccessary
