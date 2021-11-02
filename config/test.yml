@@ -1,5 +1,5 @@
 data:
-  dir: # location of the dataset directory
+  dir: "/data/stl10"
   # Sampling options for dataloader
   train:
     augmentation:
@@ -18,6 +18,8 @@ network:
   backbone: # name of the backbone network (VGG16, ResNet50, etc)
 
 run:
+  epoch_train: 5
+  epoch_val: 1
   optimizer:
     name: 'adam'
     lr: 5e-5
