@@ -8,22 +8,13 @@ from torchvision.transforms import (
 import os
 
 
-def getData(cfg_data):
+def getDataSet(cfg_data):
     """
     Args: cfg_data
 
-    output: dictionary that contains three dataloaders
-            {"train": trainDataLoader, "val": valDataLoader, "test": testDataLoader}
+    output: dictionary that contains three datasets
+            {"train": trainDataSet, "val": valDataSet, "test": testDataSet}
     """
-    imgsets = _getDataset(cfg_data["dir"])
-    imgloaders = {x: DataLoader(imgsets[x], 
-                                batch_size = cfg_data[x]["batch_size"],
-                                shuffle = cfg_data[x]["shuffle"],
-                                num_workers = cfg_data[x]["n_workers"])
-                    for x in ['train','val','test']}
-    return imgloaders
-
-def _getDataset(img_dir):
     ################################################################################
     # TODO: preprocess 과정에서 컴비 기술 사용할 수 있도록 수정해야됨.
     #       아마 새로운 transform class를 선언해야 할 듯?
@@ -46,6 +37,20 @@ def _getDataset(img_dir):
         ])
     }
 
-    imgsets = {x: datasets.ImageFolder(os.path.join(img_dir, x), preprocess[x])
+    imgsets = {x: datasets.ImageFolder(os.path.join(cfg_data["dir"], x), preprocess[x])
                 for x in ['train', 'val', 'test']}
     return imgsets
+
+def getDataLoader(imgsets, cfg_data):
+    """
+    Args: datasets from getDataset, cfg_data
+
+    output: dictionary that contains three dataloaders
+            {"train": trainDataLoader, "val": valDataLoader, "test": testDataLoader}
+    """
+    imgloaders = {x: DataLoader(imgsets[x], 
+                                batch_size = cfg_data[x]["batch_size"],
+                                shuffle = cfg_data[x]["shuffle"],
+                                num_workers = cfg_data[x]["n_workers"])
+                    for x in ['train','val','test']}
+    return imgloaders
