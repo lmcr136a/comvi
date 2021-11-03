@@ -15,12 +15,14 @@ data:
     n_workers: 1
 
 network:
-  backbone: # name of the backbone network (VGG16, ResNet50, etc)
+  backbone: "resnet18"
+  n_class: 10
+  n_cv: 1
 
 run:
   epoch_train: 5
   epoch_val: 1
   optimizer:
-    name: 'adam'
+    name: "adam"
     lr: 5e-5
   scheduler: # use this if neccessary
