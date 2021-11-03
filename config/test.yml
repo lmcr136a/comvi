@@ -1,11 +1,11 @@
 data:
-  dir: "./data/stl10"
+  dir: "./data_for_test/stl10"
   # Sampling options for dataloader
   train:
     augmentation:
       # if there is neccesary to optimize augmentation, we will use this
     shuffle: True
-    batch_size: 1
+    batch_size: 10
     n_workers: 1
   val:
     shuffle: False
@@ -19,12 +19,12 @@ data:
 network:
   backbone: "resnet18"
   n_class: 10
-  n_cv: 1
+  n_cv: 0
 
 run:
   epoch: 10
   val_interval: 5
   optimizer:
     name: "adam"
-    lr: 5e-5
+    lr: 5.0e-5
   scheduler: # use this if neccessary
