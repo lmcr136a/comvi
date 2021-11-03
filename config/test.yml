@@ -20,8 +20,8 @@ network:
   n_cv: 1
 
 run:
-  epoch_train: 5
-  epoch_val: 1
+  epoch: 10
+  val_interval: 5
   optimizer:
     name: "adam"
     lr: 5e-5
