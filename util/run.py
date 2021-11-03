@@ -18,7 +18,7 @@ def run(dataset, dataloader, network, cfg_run):
 
     # set criterion/optimizer
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(network.parameters(), lr=cfg_run["lr"])
+    optimizer = optim.Adam(network.parameters(), lr=cfg_run["optimizer"]["lr"])
 
     # Train/Val step, return the best accuracy network
     best_network = _trainNval(dataset, dataloader, network, cfg_run, criterion, optimizer, device)

@@ -8,7 +8,7 @@
 # 실험을 진행할 메인 코드
 import argparse
 
-from util import configuration, getDataSets, getDataLoader, run, getResult
+from util import configuration, getDataSet, getDataLoader, run, getResult
 from backbone import getNetwork
 
 
@@ -17,7 +17,7 @@ def main(args):
     cfg = configuration(args.config)
 
     # Data 불러오는 모듈
-    dataset = getDataSets(cfg["data"])
+    dataset = getDataSet(cfg["data"])
     dataloader = getDataLoader(dataset, cfg["data"])
 
     # Network 불러오는 모듈

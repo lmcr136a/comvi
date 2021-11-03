@@ -1,5 +1,5 @@
 data:
-  dir: "/data/stl10"
+  dir: "./data/stl10"
   # Sampling options for dataloader
   train:
     augmentation:
@@ -8,9 +8,11 @@ data:
     batch_size: 1
     n_workers: 1
   val:
+    shuffle: False
     batch_size: 1
     n_workers: 1
   test:
+    shuffle: False
     batch_size: 1
     n_workers: 1
 
