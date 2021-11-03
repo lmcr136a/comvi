@@ -9,10 +9,15 @@ def configuration(config):
 
     output: dictionary of configurations
     """
+
     with open(config, encoding="utf-8") as fp:
         cfg = yaml.load(fp, Loader=yaml.FullLoader)
 
     return cfg
 
 def getResult(result):
-    raise NotImplementedError
+    """
+    Print the result in nice form
+    """
+    
+    print("Test accuracy :", result)

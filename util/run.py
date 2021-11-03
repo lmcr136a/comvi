@@ -9,7 +9,7 @@ def run(data, network, cfg_run):
     """
     best_network = _trainNval(data, network, cfg_run)
     test_accuracy = _test(data['test'], best_network, cfg_run)
-    raise NotImplementedError
+    return test_accuracy
 
 def _trainNval(data, network, cfg_run):
     """
