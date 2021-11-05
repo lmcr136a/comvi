@@ -42,11 +42,11 @@ def getDataSet(cfg_data):
     imgsets = {x: datasets.ImageFolder(os.path.join(cfg_data["dir"], x), preprocess[x])
                 for x in ['train', 'val', 'test']}
 
-    n_class = len(imgsets['train'])
+    n_class = len(imgsets['train'].classes)
     
     for x in ['train', 'val', 'test']:
-        print("[ DATASET ] [",x,"] [SIZE]",len(imgsets[x]))
-        if len(imgsets[x]) != n_class:
+        print("[ DATASET ] [",x,"] N_CLASS:",len(imgsets[x].classes),", SIZE:",len(imgsets[x]))
+        if len(imgsets[x].classes) != n_class:
             raise ("[WARNING] n_class are different! Reformulate your dataset!")
 
     return imgsets, n_class

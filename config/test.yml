@@ -21,8 +21,8 @@ network:
   n_cv: 0
 
 run:
-  epoch: 10
-  val_interval: 5
+  epoch: 6
+  val_interval: 2
   optimizer:
     name: "adam"
     lr: 5.0e-5

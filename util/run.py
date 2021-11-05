@@ -19,6 +19,9 @@ def run(dataset, dataloader, network, cfg_run):
     # set criterion/optimizer
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(network.parameters(), lr=cfg_run["optimizer"]["lr"])
+    print("[OPTIMIZER] ADAM FIXED [LearningRate] ",cfg_run["optimizer"]["lr"])
+
+    print("\nTRAINING START!")
 
     # Train/Val step, return the best accuracy network
     best_network = _trainNval(dataset, dataloader, network, cfg_run, criterion, optimizer, device)
@@ -38,8 +41,8 @@ def _trainNval(dataset, dataloader, network, cfg_run, criterion, optimizer, devi
     best_network = None
 
     for epoch in range(cfg_run["epoch"]):
-        print('Epoch {}/{}'.format(epoch, cfg_run["epoch"] - 1))
-        print('-' * 10)
+        print('Epoch {}/{}'.format(epoch+1, cfg_run["epoch"]))
+        print('-' * 40)
 
         # Train step for every epoch
         network.train()
@@ -64,8 +67,8 @@ def _trainNval(dataset, dataloader, network, cfg_run, criterion, optimizer, devi
             running_loss += loss.item() * inputs.size(0)
             running_corrects += torch.sum(preds == labels.data)
         
-        epoch_loss = running_loss / dataset['train']
-        epoch_acc = running_corrects / dataset['train']
+        epoch_loss = running_loss / len(dataset['train'])
+        epoch_acc = running_corrects / len(dataset['train'])
 
         print('[  TRAIN  ] Loss: {:.4f} Acc: {:.4f}'.format(epoch_loss, epoch_acc))
 
@@ -89,8 +92,8 @@ def _trainNval(dataset, dataloader, network, cfg_run, criterion, optimizer, devi
                 running_loss += loss.item() * inputs.size(0)
                 running_corrects += torch.sum(preds == labels.data)
             
-            val_loss = running_loss / dataset['val']
-            val_acc = running_corrects / dataset['val']
+            val_loss = running_loss / len(dataset['val'])
+            val_acc = running_corrects / len(dataset['val'])
 
             print('[   VAL   ] Loss: {:.4f} Acc: {:.4f}'.format(val_loss, val_acc))
 
@@ -124,17 +127,17 @@ def _test(dataset, dataloader, network, criterion, device):
         running_loss += loss.item() * inputs.size(0)
         running_corrects += torch.sum(preds == labels.data)
     
-    test_loss = running_loss / dataset['test']
-    test_acc = running_corrects / dataset['test']
+    test_loss = running_loss / len(dataset['test'])
+    test_acc = running_corrects / len(dataset['test'])
 
     print('[  TEST   ] Loss: {:.4f} Acc: {:.4f}'.format(test_loss, test_acc))
 
-    return test_acc
+    return test_acc.item()
 
 def is_cuda():
     if torch.cuda.is_available():
-        print("CUDA available")
+        print("[ DEVICE  ] CUDA available")
         return "cuda"
     else:
-        print("No CUDA. Working on CPU.")
+        print("[ DEVICE  ] No CUDA. Working on CPU.")
         return "cpu"
