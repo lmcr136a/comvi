@@ -1,5 +1,5 @@
 data:
-  dir: "./data_for_test/stl10"
+  dir: "./data_for_test/stl10_small"
   # Sampling options for dataloader
   train:
     augmentation:
@@ -18,7 +18,7 @@ data:
 
 network:
   backbone: "resnet18"
-  n_class: 10
+  n_class: 2
   n_cv: 0
 
 run:
