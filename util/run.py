@@ -67,7 +67,7 @@ def _trainNval(dataset, dataloader, network, cfg_run, criterion, optimizer, devi
         epoch_loss = running_loss / dataset['train']
         epoch_acc = running_corrects / dataset['train']
 
-        print('[TRAIN] Loss: {:.4f} Acc: {:.4f}'.format(epoch_loss, epoch_acc))
+        print('[  TRAIN  ] Loss: {:.4f} Acc: {:.4f}'.format(epoch_loss, epoch_acc))
 
         # Validation step for every cfg_run["val_interval"] times
         if (epoch+1) % cfg_run["val_interval"] == 0:
@@ -92,7 +92,7 @@ def _trainNval(dataset, dataloader, network, cfg_run, criterion, optimizer, devi
             val_loss = running_loss / dataset['val']
             val_acc = running_corrects / dataset['val']
 
-            print('[ VAL ] Loss: {:.4f} Acc: {:.4f}'.format(val_loss, val_acc))
+            print('[   VAL   ] Loss: {:.4f} Acc: {:.4f}'.format(val_loss, val_acc))
 
             # if validation accuracy is greater than best_acc, save that model
             if val_acc >= best_acc:
@@ -127,7 +127,7 @@ def _test(dataset, dataloader, network, criterion, device):
     test_loss = running_loss / dataset['test']
     test_acc = running_corrects / dataset['test']
 
-    print('[TEST ] Loss: {:.4f} Acc: {:.4f}'.format(test_loss, test_acc))
+    print('[  TEST   ] Loss: {:.4f} Acc: {:.4f}'.format(test_loss, test_acc))
 
     return test_acc
 

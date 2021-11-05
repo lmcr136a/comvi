@@ -17,11 +17,11 @@ def main(args):
     cfg = configuration(args.config)
 
     # Data 불러오는 모듈
-    dataset = getDataSet(cfg["data"])
+    dataset, n_class = getDataSet(cfg["data"])
     dataloader = getDataLoader(dataset, cfg["data"])
 
     # Network 불러오는 모듈
-    network = getNetwork(cfg["network"])
+    network = getNetwork(cfg["network"], n_class)
 
     # RUN(train/val/test): validation 이후 가장 좋은 성능 보이는 걸로 test 진행
     result = run(dataset, dataloader, network, cfg["run"])

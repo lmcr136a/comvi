@@ -18,7 +18,6 @@ data:
 
 network:
   backbone: "resnet18"
-  n_class: 2
   n_cv: 0
 
 run:

@@ -1,8 +1,7 @@
 from .resnet import resnet18, resnet34, resnet50, resnet101, resnet152
 
-def getNetwork(cfg_network):
+def getNetwork(cfg_network, n_class):
     name = cfg_network["backbone"]
-    n_class = cfg_network["n_class"]
     n_cv = cfg_network["n_cv"]
     try:
         return {
