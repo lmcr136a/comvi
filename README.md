@@ -48,4 +48,3 @@ Epoch 5/5
 [  TEST   ] Loss: 0.6093 Acc: 0.7000
 Test accuracy : 0.699999988079071
 ```
-- 
