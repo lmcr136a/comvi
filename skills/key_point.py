@@ -13,7 +13,7 @@ edgeThreshold: 필터링할 엣지 문턱 값
 sigma: 이미지 피라미드 0 계층에서 사용할 가우시안 필터의 시그마 값
 """
 
-def sift(img, nfeatures=200, contrastThreshold=0.04, edgeThreshold=10, sigma=1.6, for_test=False):
+def sift(img, mode="sift_img", nfeatures=200, contrastThreshold=0.04, edgeThreshold=10, sigma=1.6, for_test=False):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     sift = cv2.xfeatures2d.SIFT_create(
@@ -30,8 +30,20 @@ def sift(img, nfeatures=200, contrastThreshold=0.04, edgeThreshold=10, sigma=1.6
                         flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
         return img_draw
     else:
-        sift_img = cv2.drawKeypoints(np.zeros_like(img), keypoints, None, \
-                        flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+        if mode == "img_in_sift_circle":
+            sift_img = img.copy()
+            for x in range(1,len(keypoints)):
+                sift_img=cv2.circle(
+                    sift_img, 
+                    (np.int(keypoints[x].pt[0]),np.int(keypoints[x].pt[1])), 
+                    radius=np.int(keypoints[x].size), 
+                    color=(0,0,0), thickness=-1
+                    )
+            sift_img = img - sift_img
+
+        elif mode=="sift_img":
+            sift_img = cv2.drawKeypoints(np.zeros_like(img), keypoints, None, \
+                            flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)                  
         sift_img = Image.fromarray(sift_img).convert('L')
         return sift_img
     
@@ -44,7 +56,6 @@ ksize: 소벨 미분 필터 크기
 k(optional): 코너 검출 상수 (보토 0.04~0.06)
 dst(optional): 코너 검출 결과 (src와 같은 크기의 1 채널 배열, 변화량의 값, 지역 최대 값이 코너점을 의미)
 borderType(optional): 외곽 영역 보정 형식
-
 """
 
 def corner_harris(img, for_test=False):
@@ -60,9 +71,9 @@ def corner_harris(img, for_test=False):
     return coner_img
 
 if __name__ == '__main__':
-    sample_image = Image.open("../data_for_test/testimg.jpg")
+    sample_image = Image.open("data_for_test/testimg.jpg")
     sample_image = np.array(sample_image)
-    siftimg = sift(sample_image, for_test=False)
+    siftimg = sift(sample_image, for_test=False,  mode="img_in_sift_circle")
     plt.figure()
     plt.imshow(siftimg)
     plt.show()
