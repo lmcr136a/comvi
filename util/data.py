@@ -4,6 +4,7 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import datasets, transforms, utils
 from torchvision.transforms import (
     ToTensor, Lambda, Compose, Resize, RandomHorizontalFlip, RandomRotation)
+from skills.key_point import SIFT, HarrisCorner
 
 import os
 
@@ -20,13 +21,18 @@ def getDataSet(cfg_data):
     #       아마 새로운 transform class를 선언해야 할 듯?
     ################################################################################
 
-    preprocess = {
-        'train': Compose([
-            Resize((256,256)),
+    aug_config = cfg_data["train"]["augmentation"]
+    transforms_list = [
             RandomHorizontalFlip(),
             RandomRotation((-180,180)),
             ToTensor()
-        ]),
+        ]
+
+    if aug_config["sift"]:
+        transforms_list.append(SIFT(mode=aug_config["sift"]))
+        
+    preprocess = {
+        'train': Compose(transforms_list),
         'val': Compose([
             Resize((256,256)),
             ToTensor()

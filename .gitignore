@@ -4,3 +4,7 @@ data/
 nhkim/
 wslee/
 hyjeong/
+
+ backbone/__pycache__/
+ util/__pycache__/
+ skills/__pycache__/
