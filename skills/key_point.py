@@ -40,6 +40,7 @@ class SIFT(object):
         keypoints, descriptor = sift.detectAndCompute(gray, None)
 
         if self.for_test:
+            # 사람이 시각화해서 볼때 예쁨
             img_draw = cv2.drawKeypoints(img, keypoints, None, \
                             flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
             return img_draw
@@ -56,8 +57,10 @@ class SIFT(object):
                 sift_img = gray - sift_img
 
             elif self.mode=="sift_img":
-                sift_img = cv2.drawKeypoints(np.zeros_like(gray), keypoints, None, \
+                sift_img = np.zeros_like(gray)
+                sift_img = cv2.drawKeypoints(sift_img, keypoints,  None, color=(1,1,1,1), \
                                 flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)   
+                sift_img = np.sum(sift_img, axis=2).astype(np.uint8)
             return torch.concat((torch_img, torch.Tensor(sift_img).unsqueeze(axis)), axis=axis)
 
 """
@@ -74,36 +77,36 @@ class HarrisCorner(object):
     def __init__(self, for_test=False):
         self.for_test=for_test
 
-    def __call__(self, img):
-        img = img.detach().numpy().astype(np.uint8)
+    def __call__(self, torch_img):
+        img = torch_img.detach().numpy().astype(np.uint8)
         if img.shape[0] == 3:
+            axis = 0
             gray = np.mean(img, axis=0).astype(np.uint8)
         else:
+            axis = 2
             gray = np.mean(img, axis=2).astype(np.uint8)
         corner = cv2.cornerHarris(gray, 2, 3, 0.04)
         coord = np.where(corner > 0.3* corner.max())
         coord = np.stack((coord[1], coord[0]), axis=-1)
-        coner_img = np.zeros_like(img)
+        coner_img = np.zeros(img.shape[:2])
         for x, y in coord:
-            cv2.circle(coner_img, (x,y), 5, (0,0,255), 1, cv2.LINE_AA)
+            cv2.circle(coner_img, (x,y), 5, (1), 1, cv2.LINE_AA)
         
-        return torch.Tensor(coner_img)
+        return torch.concat((torch_img, torch.Tensor(coner_img).unsqueeze(axis)), axis=axis)
 
 
 if __name__ == '__main__':
     sample_image = Image.open("data_for_test/testimg.jpg")
     sample_image = torch.Tensor(np.array(sample_image))
+    # sift = SIFT(for_test=False)
     sift = SIFT(for_test=False,  mode="img_in_sift_circle")
+    # sift = HarrisCorner(for_test=False)
     siftimg = sift(sample_image)
     print(siftimg.shape)
 
     
     plt.figure()
     plt.imshow(sample_image.detach().numpy().astype(np.uint8))
-    plt.show()
-    
-    plt.figure()
-    plt.imshow(siftimg[:, :, :3])
     plt.show()
 
     plt.figure()

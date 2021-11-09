@@ -22,25 +22,29 @@ def getDataSet(cfg_data):
     ################################################################################
 
     aug_config = cfg_data["train"]["augmentation"]
-    transforms_list = [
+    train_transforms = [
             RandomHorizontalFlip(),
             RandomRotation((-180,180)),
             ToTensor()
         ]
+    test_transforms = [
+            Resize((256,256)),
+            ToTensor()
+        ]
+    val_transforms = [
+            Resize((256,256)),
+            ToTensor()
+        ]
 
     if aug_config["sift"]:
-        transforms_list.append(SIFT(mode=aug_config["sift"]))
-        
+        train_transforms.append(SIFT(mode=aug_config["sift"]))
+        test_transforms.append(SIFT(mode=aug_config["sift"]))
+        val_transforms.append(SIFT(mode=aug_config["sift"]))
+
     preprocess = {
-        'train': Compose(transforms_list),
-        'val': Compose([
-            Resize((256,256)),
-            ToTensor()
-        ]),
-        'test': Compose([
-            Resize((256,256)),
-            ToTensor()
-        ])
+        'train': Compose(train_transforms),
+        'val': Compose(val_transforms),
+        'test': Compose(test_transforms)
     }
 
     print("[ DATADIR ] ",cfg_data["dir"])
