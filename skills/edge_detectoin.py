@@ -6,12 +6,12 @@ from matplotlib import pyplot as plt
 
 class EDGE(object):
     """
-    Detect edge and spit out in tensor form
+    Detect edge and spit out in tensor form.
+    **채널 1개증가
     Args:
         img (torch array) : 엣지 디텍트 할 이미지.
         lthr(int) : low threshold
         hthr(int) : high threshold
-        input image might have several channels but 0~2 channels are always image
     """
     def __init__(self,lthr=150,hthr=200):
         self.lthr = lthr
@@ -24,14 +24,14 @@ class EDGE(object):
         edge = torch.unsqueeze(edge,0)
         return torch.cat((torch_img, edge),dim=0)
 
-# if __name__ == '__main__':
-#     edge_detector = EDGE(150,200)
-#     sample_image = Image.open("data_for_test/testimg.jpg")
-#     sample_image = torch.Tensor(np.array(sample_image))
-#     shape = sample_image.shape
-#     sample_image = sample_image.reshape(shape[2],shape[0],shape[1])
-#     edge = edge_detector(sample_image)
+if __name__ == '__main__':
+    edge_detector = EDGE(150,200)
+    sample_image = Image.open("data_for_test/testimg.jpg")
+    sample_image = torch.Tensor(np.array(sample_image))
+    shape = sample_image.shape
+    sample_image = sample_image.reshape(shape[2],shape[0],shape[1])
+    edge = edge_detector(sample_image)
 
-#     plt.figure()
-#     plt.imshow(edge[:,:,3])
-#     plt.show()
+    plt.figure()
+    plt.imshow(edge[3,:,:])
+    plt.show()

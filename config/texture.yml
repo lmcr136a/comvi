@@ -1,0 +1,30 @@
+data:
+  dir: "./data_for_test/stl10_small"
+  # Sampling options for dataloader
+  train:
+    augmentation:
+      # if there is neccesary to optimize augmentation, we will use this
+      gabor: {ksize: [10,10], sigma: 1, theta: 0, lambd: 10, gamma: 1, psi: 0}
+    shuffle: True
+    batch_size: 10
+    n_workers: 1
+  val:
+    shuffle: False
+    batch_size: 1
+    n_workers: 1
+  test:
+    shuffle: False
+    batch_size: 1
+    n_workers: 1
+
+network:
+  backbone: "resnet18"
+  n_cv: 3
+
+run:
+  epoch: 6
+  val_interval: 2
+  optimizer:
+    name: "adam"
+    lr: 5.0e-5
+  scheduler: # use this if neccessary
