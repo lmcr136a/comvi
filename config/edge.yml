@@ -4,7 +4,6 @@ data:
   train:
     augmentation:
       # if there is neccesary to optimize augmentation, we will use this
-      sift: img_in_sift_circle  # img_in_sift_circle   or   sift_img   or   None
       edge: [150,200]
     shuffle: True
     batch_size: 10
@@ -20,7 +19,7 @@ data:
 
 network:
   backbone: "resnet18"
-  n_cv: 0
+  n_cv: 2
 
 run:
   epoch: 6
