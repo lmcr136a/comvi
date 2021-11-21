@@ -23,30 +23,31 @@ def getDataSet(cfg_data):
     ################################################################################
 
     aug_config = cfg_data["train"]["augmentation"]
+    resize = cfg_data["resize"]
     train_transforms = [
-            Resize((512,512)),
+            Resize((resize,resize)),
             RandomHorizontalFlip(),
             RandomRotation((-180,180)),
             ToTensor()
         ]
     test_transforms = [
-            Resize((512,512)),
+            Resize((resize,resize)),
             ToTensor()
         ]
     val_transforms = [
-            Resize((512,512)),
+            Resize((resize,resize)),
             ToTensor()
         ]
 
-    # if aug_config["sift"]:
-    #     train_transforms.append(SIFT(mode=aug_config["sift"]))
-    #     test_transforms.append(SIFT(mode=aug_config["sift"]))
-    #     val_transforms.append(SIFT(mode=aug_config["sift"]))
+    if aug_config["sift"]:
+        train_transforms.append(SIFT(mode=aug_config["sift"]))
+        test_transforms.append(SIFT(mode=aug_config["sift"]))
+        val_transforms.append(SIFT(mode=aug_config["sift"]))
 
-    # if aug_config["edge"]:
-    #     train_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
-    #     test_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
-    #     val_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
+    if aug_config["edge"]:
+        train_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
+        test_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
+        val_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
 
     if aug_config["gabor"]:
         train_transforms.append(GABOR(ksize = aug_config["gabor"]["ksize"], sigma = aug_config["gabor"]["sigma"], theta = aug_config["gabor"]["theta"],

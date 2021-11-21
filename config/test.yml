@@ -1,5 +1,7 @@
 data:
   dir: "./data_for_test/stl10_small"
+  # Resize factor
+  resize: 512
   # Sampling options for dataloader
   train:
     augmentation:
