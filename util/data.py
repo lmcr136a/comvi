@@ -37,15 +37,15 @@ def getDataSet(cfg_data):
             ToTensor()
         ]
 
-    # if aug_config["sift"]:
-    #     train_transforms.append(SIFT(mode=aug_config["sift"]))
-    #     test_transforms.append(SIFT(mode=aug_config["sift"]))
-    #     val_transforms.append(SIFT(mode=aug_config["sift"]))
+    if aug_config["sift"]:
+        train_transforms.append(SIFT(mode=aug_config["sift"]))
+        test_transforms.append(SIFT(mode=aug_config["sift"]))
+        val_transforms.append(SIFT(mode=aug_config["sift"]))
 
-    # if aug_config["edge"]:
-    #     train_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
-    #     test_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
-    #     val_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
+    if aug_config["edge"]:
+        train_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
+        test_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
+        val_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
 
     if aug_config["gabor"]:
         train_transforms.append(GABOR(ksize = aug_config["gabor"]["ksize"], sigma = aug_config["gabor"]["sigma"], theta = aug_config["gabor"]["theta"],
@@ -88,3 +88,4 @@ def getDataLoader(imgsets, cfg_data):
                                 num_workers = cfg_data[x]["n_workers"])
                     for x in ['train','val','test']}
     return imgloaders
+
