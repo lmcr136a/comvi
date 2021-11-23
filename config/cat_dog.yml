@@ -6,6 +6,7 @@ data:
       # if there is neccesary to optimize augmentation, we will use this
       sift:   # circle   or   default   or   blur_circle
       edge: 
+      gabor:
     shuffle: True
     batch_size: 32
     n_workers: 1
