@@ -64,6 +64,8 @@ class SIFT(object):
                 sift_img = cv2.drawKeypoints(sift_img, keypoints,  None, color=(1,1,1,1), \
                                 flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)   
                 sift_img = np.sum(sift_img, axis=2).astype(np.uint8)
+
+
             return torch.cat((torch_img, torch.Tensor(sift_img).unsqueeze(axis)), axis=axis)
 
 """
