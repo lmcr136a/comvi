@@ -17,8 +17,8 @@ import math
         ktype : CV_32F or CV_64F
 """
 class GABOR(object):
-    def __init__(self,ksize=(50,50),sigma=5,theta=0,lambd=10,gamma=1,psi=0,ktype=cv.CV_64F):
-        self.ksize = ksize
+    def __init__(self,ksize1=50,ksize2 = 50,sigma=5,theta=0,lambd=10,gamma=1,psi=0,ktype=cv.CV_64F):
+        self.ksize = (ksize1,ksize2)
         self.sigma = sigma
         self.theta = theta
         self.lambd = lambd

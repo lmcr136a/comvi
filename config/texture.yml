@@ -4,7 +4,7 @@ data:
   train:
     augmentation:
       # if there is neccesary to optimize augmentation, we will use this
-      gabor: {ksize: [10,10], sigma: 1, theta: 0, lambd: 10, gamma: 1, psi: 0}
+      gabor: {ksize1: 10,ksize2: 10, sigma: 1, theta: 0, lambd: 10, gamma: 1, psi: 0}
     shuffle: True
     batch_size: 10
     n_workers: 1
