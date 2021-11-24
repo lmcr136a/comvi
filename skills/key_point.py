@@ -22,7 +22,7 @@ class SIFT(object):
         self.sigma=sigma
         self.for_test=for_test
 
-    def __call__(self, torch_img):
+    def __call__(self, torch_img, kernel_size=(5,5)):
         img = torch_img.detach().numpy().astype(np.uint8)
         if img.shape[0] == 3:
             axis = 0
@@ -45,7 +45,7 @@ class SIFT(object):
                             flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
             return img_draw
         else:
-            if self.mode == "img_in_sift_circle":
+            if "circle" in self.mode:
                 sift_img = gray.copy()
                 for x in range(1,len(keypoints)):
                     sift_img=cv2.circle(
@@ -55,8 +55,11 @@ class SIFT(object):
                         color=(0,0,0), thickness=-1
                         )
                 sift_img = gray - sift_img
+                if self.mode == "blur_circle":
+                    blurred = cv2.GaussianBlur(gray.copy(), kernel_size, cv2.BORDER_DEFAULT)
+                    sift_img = np.where(sift_img == 0, blurred, sift_img)
 
-            elif self.mode=="sift_img":
+            elif self.mode=="default":
                 sift_img = np.zeros_like(gray)
                 sift_img = cv2.drawKeypoints(sift_img, keypoints,  None, color=(1,1,1,1), \
                                 flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)   
@@ -96,10 +99,10 @@ class HarrisCorner(object):
 
 
 if __name__ == '__main__':
-    sample_image = Image.open("data_for_test/testimg.jpg")
+    sample_image = Image.open("data/cat_dog/test/dog/dog.12400.jpg")
     sample_image = torch.Tensor(np.array(sample_image))
     # sift = SIFT(for_test=False)
-    sift = SIFT(for_test=False,  mode="img_in_sift_circle")
+    sift = SIFT(for_test=False,  mode="blur_circle")
     # sift = HarrisCorner(for_test=False)
     siftimg = sift(sample_image)
     print(siftimg.shape)
@@ -110,6 +113,6 @@ if __name__ == '__main__':
     plt.show()
 
     plt.figure()
-    plt.imshow(siftimg[:, :, 3])
+    plt.imshow(siftimg[:, :, 3], cmap=plt.get_cmap("gist_gray"))
     plt.show()
 
