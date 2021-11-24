@@ -66,7 +66,7 @@ class SIFT(object):
                 sift_img = np.sum(sift_img, axis=2).astype(np.uint8)
 
 
-            return torch.concat((torch_img, torch.Tensor(sift_img).unsqueeze(axis)), axis=axis)
+            return torch.cat((torch_img, torch.Tensor(sift_img).unsqueeze(axis)), axis=axis)
 
 """
 해리스 코너 검출
