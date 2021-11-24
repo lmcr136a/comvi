@@ -24,28 +24,29 @@ def getDataSet(cfg_data):
 
     aug_config = cfg_data["train"]["augmentation"]
     train_transforms = [
+            Resize((512,512)),
             RandomHorizontalFlip(),
             RandomRotation((-180,180)),
             ToTensor()
         ]
     test_transforms = [
-            Resize((256,256)),
+            Resize((512,512)),
             ToTensor()
         ]
     val_transforms = [
-            Resize((256,256)),
+            Resize((512,512)),
             ToTensor()
         ]
 
-    # if aug_config["sift"]:
-    #     train_transforms.append(SIFT(mode=aug_config["sift"]))
-    #     test_transforms.append(SIFT(mode=aug_config["sift"]))
-    #     val_transforms.append(SIFT(mode=aug_config["sift"]))
+    if aug_config["sift"]:
+        train_transforms.append(SIFT(mode=aug_config["sift"]))
+        test_transforms.append(SIFT(mode=aug_config["sift"]))
+        val_transforms.append(SIFT(mode=aug_config["sift"]))
 
-    # if aug_config["edge"]:
-    #     train_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
-    #     test_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
-    #     val_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
+    if aug_config["edge"]:
+        train_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
+        test_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
+        val_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
 
     if aug_config["gabor"]:
         train_transforms.append(GABOR(ksize1 = aug_config["gabor"]["ksize1"],ksize2 = aug_config["gabor"]["ksize2"], sigma = aug_config["gabor"]["sigma"], theta = aug_config["gabor"]["theta"],
@@ -88,3 +89,4 @@ def getDataLoader(imgsets, cfg_data):
                                 num_workers = cfg_data[x]["n_workers"])
                     for x in ['train','val','test']}
     return imgloaders
+
