@@ -25,17 +25,17 @@ def getDataSet(cfg_data):
     aug_config = cfg_data["train"]["augmentation"]
     resize = cfg_data["resize"]
     train_transforms = [
-            Resize((resize,resize)),
+            Resize((512,512)),
             RandomHorizontalFlip(),
             RandomRotation((-180,180)),
             ToTensor()
         ]
     test_transforms = [
-            Resize((resize,resize)),
+            Resize((512,512)),
             ToTensor()
         ]
     val_transforms = [
-            Resize((resize,resize)),
+            Resize((512,512)),
             ToTensor()
         ]
 
