@@ -1,6 +1,8 @@
 from .resnet import resnet18, resnet34, resnet50, resnet101, resnet152
+from skills.texture import GaborLayerLearnable
 
-def getNetwork(cfg_network, n_class):
+
+def getResnet(cfg_network, n_class):
     name = cfg_network["backbone"]
     n_cv = cfg_network["n_cv"]
     print("[ NETWORK ] ",name,"[N_CV]",n_cv)
@@ -15,3 +17,16 @@ def getNetwork(cfg_network, n_class):
         }[name]
     except:
         raise (f"Model {name} not available")
+
+
+def getNetwork(cfg_network, n_class):
+    resnet = getResnet(cfg_network, n_class)
+    if cfg_network["gabor"]:
+        resnet.conv1 = GaborLayerLearnable(
+            in_channels=resnet.first_layer_input_size, 
+            out_channels=resnet.first_layer_output_size,
+            stride=resnet.first_layer_stride, 
+            padding=resnet.first_layer_padding, 
+            kernels=resnet.first_layer_kernel_size,
+        )
+    return resnet
