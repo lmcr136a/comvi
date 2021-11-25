@@ -1,6 +1,9 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from PIL import Image
+import time
+import os
 
 # Codes from https://deep-learning-study.tistory.com/534
 # 추가된 부분: ResNet 처음에 input 받아서 64채널로 변환하는 conv layer에서
@@ -76,17 +79,29 @@ class ResNet(nn.Module):
 
         self.in_channels=64
 
+        # for gabor
+        self.first_layer_input_size = self.in_channels
+        self.first_layer_output_size = 64
+        self.first_layer_stride = 2
+        self.first_layer_kernel_size = 7
+        self.first_layer_padding = 3
+
         # Traditional Computer Vision Technique를 이용한 preprocess로
         # input channel이 증가한 경우 n_cv를 통해 이를 network에 반영
         # First convolution layer의 input channel 수를 변경가능
         self.conv1 = nn.Sequential(
-            nn.Conv2d((3+n_cv), 64, kernel_size=7, stride=2, padding=3, bias=False),
+            nn.Conv2d((3+n_cv), 64, 
+                        kernel_size=self.first_layer_kernel_size, 
+                        stride=self.first_layer_stride, 
+                        padding=self.first_layer_padding, 
+                        bias=False
+                    ),
             nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
         )
 
-        self.conv2_x = self._make_layer(block, 64, num_block[0], 1)
+        self.conv2_x = self._make_layer(block, self.first_layer_output_size, num_block[0], 1)
         self.conv3_x = self._make_layer(block, 128, num_block[1], 2)
         self.conv4_x = self._make_layer(block, 256, num_block[2], 2)
         self.conv5_x = self._make_layer(block, 512, num_block[3], 2)
@@ -109,6 +124,14 @@ class ResNet(nn.Module):
 
     def forward(self,x):
         output = self.conv1(x)
+        
+        dirname = time.time()
+        print(output.shape)
+        os.mkdir(f"samples/{dirname}")
+        for channel in range(output.shape[1]):
+            output_img = Image.fromarray(output[0][channel].detach().cpu().numpy()).convert("L")
+            output_img.save(f"samples/{dirname}/first_layer_{channel}.jpg")
+
         output = self.conv2_x(output)
         x = self.conv3_x(output)
         x = self.conv4_x(x)
