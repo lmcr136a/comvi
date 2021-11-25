@@ -5,6 +5,10 @@ import torch.nn as nn
 from PIL import Image
 from matplotlib import pyplot as plt
 import math
+import time
+import os 
+
+
 """
     gabor filter explanation:
     http://www.cs.rug.nl/~imaging/simplecell.html
@@ -37,15 +41,15 @@ class GABOR(object):
 
 
 class GaborLayerLearnable(nn.Module):
-    def __init__(self, in_channels, stride, padding, kernels, out_channels, 
-        kernel_size=11, bias1=False, bias2=False, relu=True, 
+    def __init__(self, in_channels, stride, padding, out_channels, 
+        kernel_size, bias1=False, bias2=False, relu=True, 
         use_alphas=True, use_translation=False):
         super(GaborLayerLearnable, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.stride = stride
         self.padding = padding
-        self.kernels = kernels
+        self.kernels = out_channels
         self.total_kernels = self.kernels
         self.responses = self.kernels
         self.kernel_size = kernel_size
@@ -110,18 +114,14 @@ class GaborLayerLearnable(nn.Module):
         # and we need to merge the batch size and the input channels for the
         # depthwise convolution (and include a '1' channel for the convolution)
         b, c, H, W = x.size()
-        x = x.view(b*c, H, W).unsqueeze(dim=1)
+        if c > 1:
+            x = torch.mean(x, axis=1)
+            x = x.unsqueeze(dim=1)
         # Perform convolution
         out = nn.functional.conv2d(input=x, weight=self.gabor_kernels, bias=self.bias, 
             stride=self.stride, padding=self.padding)
         if self.relu:
             out = torch.relu(out)
-        # 'out' is of size [batch_size*in_channels, newH, newW]
-        _, _, newH, newW = out.size()
-        # reshape to:
-        out = out.view(b, c, self.responses, newH, newW)
-        # now reshape to 
-        out = out.resize_(b, self.out_channels, newH, newW)
         return out
 
     '''
@@ -133,9 +133,6 @@ class GaborLayerLearnable(nn.Module):
         cosines = torch.cos(self.thetas)
         x = self.x * cosines - self.y * sines
         y = self.x * sines + self.y * cosines
-        if self.use_translation:
-            x = x + torch.tanh(self.trans_x)
-            y = y + torch.tanh(self.trans_y)
         # Precompute some squared terms
         # ORIENTED KERNELS
         # Compute Gaussian term
@@ -150,19 +147,29 @@ class GaborLayerLearnable(nn.Module):
         ori_gb = gaussian_term_ori * cosine_term_ori
         if self.use_alphas:
             ori_gb = self.alphas * ori_gb
+
+
+        # output = ori_gb*255
+        # print(output.shape)
+        # dirname = "gabor_"+str(time.time())
+        # os.mkdir(f"samples/{dirname}")
+        # for channel in range(output.shape[0]):
+        #     output_img = Image.fromarray(output[channel].detach().cpu().numpy()).convert("L").resize((200,200))
+        #     output_img.save(f"samples/{dirname}/first_layer_{channel}.jpg")
+
         return ori_gb.unsqueeze(dim=1)
 
 
 
-# if __name__ == '__main__':
-#     gabor = GABOR((21,21), 5, 1, 10, 1, 0, cv.CV_64F)
-#     sample_image = Image.open("data_for_test/testimg.jpg")
-#     sample_image = torch.Tensor(np.array(sample_image))
-#     shape = sample_image.shape
-#     sample_image = sample_image.reshape(shape[2],shape[0],shape[1])
-#     tex = gabor(sample_image)
-#     tex = tex.reshape(tex.shape[1],tex.shape[2],tex.shape[0])
+if __name__ == '__main__':
+    gabor = GABOR((21,21), 5, 1, 10, 1, 0, cv.CV_64F)
+    sample_image = Image.open("data_for_test/testimg.jpg")
+    sample_image = torch.Tensor(np.array(sample_image))
+    shape = sample_image.shape
+    sample_image = sample_image.reshape(shape[2],shape[0],shape[1])
+    tex = gabor(sample_image)
+    tex = tex.reshape(tex.shape[1],tex.shape[2],tex.shape[0])
 
-#     plt.figure()
-#     plt.imshow(tex[:,:,3:])
-#     plt.show()
+    plt.figure()
+    plt.imshow(tex[:,:,3:])
+    plt.show()

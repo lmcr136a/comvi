@@ -4,6 +4,7 @@ import torch.nn.functional as F
 from PIL import Image
 import time
 import os
+import numpy as np
 
 # Codes from https://deep-learning-study.tistory.com/534
 # 추가된 부분: ResNet 처음에 input 받아서 64채널로 변환하는 conv layer에서
@@ -125,12 +126,16 @@ class ResNet(nn.Module):
     def forward(self,x):
         output = self.conv1(x)
         
-        dirname = time.time()
-        print(output.shape)
-        os.mkdir(f"samples/{dirname}")
-        for channel in range(output.shape[1]):
-            output_img = Image.fromarray(output[0][channel].detach().cpu().numpy()).convert("L")
-            output_img.save(f"samples/{dirname}/first_layer_{channel}.jpg")
+        # dirname = time.time()
+        # print(output.shape)
+        # os.mkdir(f"samples/{dirname}")
+        # x_ = torch.mean(x, axis=1)[0].squeeze().detach().cpu().numpy()*255
+        # output_img = Image.fromarray(x_).convert("L")
+        # output_img.save(f"samples/{dirname}/first_layer_x.jpg")
+        # for channel in range(output.shape[1]):
+        #     ou = output[0][channel].detach().cpu().numpy()
+        #     output_img = Image.fromarray(ou*255/np.max(ou)).convert("L")
+        #     output_img.save(f"samples/{dirname}/first_layer_{channel}.jpg")
 
         output = self.conv2_x(output)
         x = self.conv3_x(output)
