@@ -6,8 +6,9 @@ data:
   train:
     augmentation:
       # if there is neccesary to optimize augmentation, we will use this
-      sift: img_in_sift_circle  # circle   or   default   or   blur_circle
-      edge: [150,200]
+      sift:   # circle   or   default   or   blur_circle
+      edge: 
+      gabor: 
     shuffle: True
     batch_size: 10
     n_workers: 1
@@ -22,7 +23,8 @@ data:
 
 network:
   backbone: "resnet18"
-  n_cv: 1
+  n_cv: 0
+  gabor:
 
 run:
   epoch: 6
