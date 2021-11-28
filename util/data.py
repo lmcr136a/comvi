@@ -64,9 +64,19 @@ def getDataSet(cfg_data):
     }
 
     print("[ DATADIR ] ",cfg_data["dir"])
-
-    imgsets = {x: datasets.ImageFolder(os.path.join(cfg_data["dir"], x), preprocess[x])
-                for x in ['train', 'val', 'test']}
+    
+    # Check if the dataset is CIFAR10/CIFAR100 or not
+    if cfg_data["dir"] == "CIFAR10":
+        imgsets = {'train': torchvision.datasets.CIFAR10(root="./data",train=True,transform=preprocess['train'],download=True),
+                   'val': torchvision.datasets.CIFAR10(root="./data",train=True,transform=preprocess['val'],download=True),
+                   'test': torchvision.datasets.CIFAR10(root="./data",train=True,transform=preprocess['test'],download=True)}
+    elif cfg_data["dir"] == "CIFAR10":
+        imgsets = {'train': torchvision.datasets.CIFAR10(root="./data",train=True,transform=preprocess['train'],download=True),
+                   'val': torchvision.datasets.CIFAR10(root="./data",train=True,transform=preprocess['val'],download=True),
+                   'test': torchvision.datasets.CIFAR10(root="./data",train=True,transform=preprocess['test'],download=True)}
+    else:
+        imgsets = {x: datasets.ImageFolder(os.path.join(cfg_data["dir"], x), preprocess[x])
+                    for x in ['train', 'val', 'test']}
 
     n_class = len(imgsets['train'].classes)
     
