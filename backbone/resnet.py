@@ -126,11 +126,11 @@ class ResNet(nn.Module):
         output = self.conv1(x)
         
         dirname = time.time()
-        print(output.shape)
-        os.mkdir(f"samples/{dirname}")
-        for channel in range(output.shape[1]):
-            output_img = Image.fromarray(output[0][channel].detach().cpu().numpy()).convert("L")
-            output_img.save(f"samples/{dirname}/first_layer_{channel}.jpg")
+        # print(output.shape)
+        # os.mkdir(f"samples/{dirname}")
+        # for channel in range(output.shape[1]):
+        #     output_img = Image.fromarray(output[0][channel].detach().cpu().numpy()).convert("L")
+        #     output_img.save(f"samples/{dirname}/first_layer_{channel}.jpg")
 
         output = self.conv2_x(output)
         x = self.conv3_x(output)
