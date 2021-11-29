@@ -1,14 +1,13 @@
 data:
-  dir: "CIFAR10"
-  # Resize factor
-  resize: 512
+  dir: "./data_for_test/stl10_small" # directory path or "CIFAR10" or "CIFAR100"
+  resize: 512 # Resize factor, integer number
   # Sampling options for dataloader
   train:
     augmentation:
-      # if there is neccesary to optimize augmentation, we will use this
       sift:   # circle   or   default   or   blur_circle
       edge: 
       gabor: 
+      perspective: # True or False
     shuffle: True
     batch_size: 10
     n_workers: 1
@@ -27,7 +26,7 @@ network:
   gabor:
 
 run:
-  epoch: 6
+  epoch: 10
   val_interval: 2
   optimizer:
     name: "adam"
