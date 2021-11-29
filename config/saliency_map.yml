@@ -1,0 +1,34 @@
+data:
+  dir: "./data_for_test/stl10_small"
+  # Sampling options for dataloader
+  train:
+    augmentation:
+      # if there is neccesary to optimize augmentation, we will use this
+      sift:   # img_in_sift_circle   or   sift_img   or   None
+      edge: 
+      gabor:   # 여기는 augmentation gabor
+      saliency_map:
+        mask:
+    shuffle: True
+    batch_size: 10
+    n_workers: 1
+  val:
+    shuffle: False
+    batch_size: 1
+    n_workers: 1
+  test:
+    shuffle: False
+    batch_size: 1
+    n_workers: 1
+
+network:
+  backbone: "resnet18"
+  n_cv: 1
+
+run:
+  epoch: 6
+  val_interval: 2
+  optimizer:
+    name: "adam"
+    lr: 5.0e-5
+  scheduler: # use this if neccessary
