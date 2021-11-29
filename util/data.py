@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
+import torchvision
 from torchvision import datasets, transforms, utils
 from torchvision.transforms import (
     ToTensor, Lambda, Compose, Resize, RandomHorizontalFlip, RandomRotation)
@@ -68,12 +69,12 @@ def getDataSet(cfg_data):
     # Check if the dataset is CIFAR10/CIFAR100 or not
     if cfg_data["dir"] == "CIFAR10":
         imgsets = {'train': torchvision.datasets.CIFAR10(root="./data",train=True,transform=preprocess['train'],download=True),
-                   'val': torchvision.datasets.CIFAR10(root="./data",train=True,transform=preprocess['val'],download=True),
-                   'test': torchvision.datasets.CIFAR10(root="./data",train=True,transform=preprocess['test'],download=True)}
-    elif cfg_data["dir"] == "CIFAR10":
-        imgsets = {'train': torchvision.datasets.CIFAR10(root="./data",train=True,transform=preprocess['train'],download=True),
-                   'val': torchvision.datasets.CIFAR10(root="./data",train=True,transform=preprocess['val'],download=True),
-                   'test': torchvision.datasets.CIFAR10(root="./data",train=True,transform=preprocess['test'],download=True)}
+                   'val': torchvision.datasets.CIFAR10(root="./data",train=False,transform=preprocess['val'],download=True),
+                   'test': torchvision.datasets.CIFAR10(root="./data",train=False,transform=preprocess['test'],download=True)}
+    elif cfg_data["dir"] == "CIFAR100":
+        imgsets = {'train': torchvision.datasets.CIFAR100(root="./data",train=True,transform=preprocess['train'],download=True),
+                   'val': torchvision.datasets.CIFAR100(root="./data",train=False,transform=preprocess['val'],download=True),
+                   'test': torchvision.datasets.CIFAR100(root="./data",train=False,transform=preprocess['test'],download=True)}
     else:
         imgsets = {x: datasets.ImageFolder(os.path.join(cfg_data["dir"], x), preprocess[x])
                     for x in ['train', 'val', 'test']}
