@@ -9,6 +9,7 @@ from torchvision.transforms.transforms import RandomPerspective
 from skills.key_point import SIFT, HarrisCorner
 from skills.edge_detectoin import EDGE
 from skills.texture import *
+from skills.saliency_map import SaliencyMap
 import os
 
 
@@ -61,6 +62,11 @@ def getDataSet(cfg_data):
                                 lambd = aug_config["gabor"]["lambd"], gamma = aug_config["gabor"]["gamma"], psi = aug_config["gabor"]["psi"]))
         val_transforms.append(GABOR(ksize1 = aug_config["gabor"]["ksize1"],ksize2 = aug_config["gabor"]["ksize2"], sigma = aug_config["gabor"]["sigma"], theta = aug_config["gabor"]["theta"],
                                 lambd = aug_config["gabor"]["lambd"], gamma = aug_config["gabor"]["gamma"], psi = aug_config["gabor"]["psi"]))
+    if aug_config["saliency_map"]:
+        train_transforms.append(SaliencyMap(mask=aug_config["saliency_map"]["mask"]))
+        test_transforms.append(SaliencyMap(mask=aug_config["saliency_map"]["mask"]))
+        val_transforms.append(SaliencyMap(mask=aug_config["saliency_map"]["mask"]))
+
 
     preprocess = {
         'train': Compose(train_transforms),

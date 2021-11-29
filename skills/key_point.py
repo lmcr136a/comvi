@@ -13,6 +13,7 @@ contrastThreshold: 필터링할 빈약한 특징 문턱 값
 edgeThreshold: 필터링할 엣지 문턱 값
 sigma: 이미지 피라미드 0 계층에서 사용할 가우시안 필터의 시그마 값
 """
+
 class SIFT(object):
     def __init__(self, mode="sift_img", nfeatures=200, contrastThreshold=0.04, edgeThreshold=10, sigma=1.6, for_test=False):
         self.mode = mode
