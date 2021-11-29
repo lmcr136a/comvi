@@ -1,9 +1,11 @@
 import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
+import torchvision
 from torchvision import datasets, transforms, utils
 from torchvision.transforms import (
     ToTensor, Lambda, Compose, Resize, RandomHorizontalFlip, RandomRotation)
+from torchvision.transforms.transforms import RandomPerspective
 from skills.key_point import SIFT, HarrisCorner
 from skills.edge_detectoin import EDGE
 from skills.texture import *
@@ -38,6 +40,9 @@ def getDataSet(cfg_data):
             Resize((resize,resize)),
             ToTensor()
         ]
+    
+    if aug_config["perspective"]:
+        train_transforms.append(RandomPerspective())
 
     if aug_config["sift"]:
         train_transforms.append(SIFT(mode=aug_config["sift"]))
@@ -64,16 +69,34 @@ def getDataSet(cfg_data):
     }
 
     print("[ DATADIR ] ",cfg_data["dir"])
-
-    imgsets = {x: datasets.ImageFolder(os.path.join(cfg_data["dir"], x), preprocess[x])
-                for x in ['train', 'val', 'test']}
+    
+    # Print data augmentation
+    print("[ AUGMENT ] [resize]",resize,end='')
+    for aug in aug_config:
+        print(" [{}] {}".format(aug, aug_config[aug]),end='')
+    print()
+    
+    # Check if the dataset is CIFAR10/CIFAR100 or not
+    if cfg_data["dir"] == "CIFAR10":
+        imgsets = {'train': torchvision.datasets.CIFAR10(root="./data",train=True,transform=preprocess['train'],download=True),
+                   'val': torchvision.datasets.CIFAR10(root="./data",train=False,transform=preprocess['val'],download=True),
+                   'test': torchvision.datasets.CIFAR10(root="./data",train=False,transform=preprocess['test'],download=True)}
+    elif cfg_data["dir"] == "CIFAR100":
+        imgsets = {'train': torchvision.datasets.CIFAR100(root="./data",train=True,transform=preprocess['train'],download=True),
+                   'val': torchvision.datasets.CIFAR100(root="./data",train=False,transform=preprocess['val'],download=True),
+                   'test': torchvision.datasets.CIFAR100(root="./data",train=False,transform=preprocess['test'],download=True)}
+    else:
+        imgsets = {x: datasets.ImageFolder(os.path.join(cfg_data["dir"], x), preprocess[x])
+                    for x in ['train', 'val', 'test']}
 
     n_class = len(imgsets['train'].classes)
     
+    print("[ DATASET ]",end='')
     for x in ['train', 'val', 'test']:
-        print("[ DATASET ] [",x,"] N_CLASS:",len(imgsets[x].classes),", SIZE:",len(imgsets[x]))
+        print(" [{}] n:{}, size:{}".format(x,len(imgsets[x].classes),len(imgsets[x])),end='')
         if len(imgsets[x].classes) != n_class:
             raise ("[WARNING] n_class are different! Reformulate your dataset!")
+    print()
 
     return imgsets, n_class
 

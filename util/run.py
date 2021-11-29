@@ -21,13 +21,15 @@ def run(dataset, dataloader, network, cfg_run):
     optimizer = optim.Adam(network.parameters(), lr=cfg_run["optimizer"]["lr"])
     print("[OPTIMIZER] ADAM FIXED [LearningRate] ",cfg_run["optimizer"]["lr"])
 
-    print("\nTRAINING START!")
+    print("\n====================== TRAINING START! =====================")
 
     # Train/Val step, return the best accuracy network
     best_network = _trainNval(dataset, dataloader, network, cfg_run, criterion, optimizer, device)
 
     # Get the train accuracy
     test_accuracy = _test(dataset, dataloader, best_network, criterion, device)
+    
+    print("===================== TRAINING FINISH! ====================")
     return test_accuracy
 
 def _trainNval(dataset, dataloader, network, cfg_run, criterion, optimizer, device):
@@ -41,9 +43,6 @@ def _trainNval(dataset, dataloader, network, cfg_run, criterion, optimizer, devi
     best_network = None
 
     for epoch in range(cfg_run["epoch"]):
-        print('Epoch {}/{}'.format(epoch+1, cfg_run["epoch"]))
-        print('-' * 40)
-
         # Train step for every epoch
         network.train()
 
@@ -70,7 +69,7 @@ def _trainNval(dataset, dataloader, network, cfg_run, criterion, optimizer, devi
         epoch_loss = running_loss / len(dataset['train'])
         epoch_acc = running_corrects / len(dataset['train'])
 
-        print('[  TRAIN  ] Loss: {:.4f} Acc: {:.4f}'.format(epoch_loss, epoch_acc))
+        print('[Epoch {}/{}] [TRAIN] Loss: {:.4f} Acc: {:.4f}'.format(epoch+1, cfg_run["epoch"], epoch_loss, epoch_acc), end='')
 
         # Validation step for every cfg_run["val_interval"] times
         if (epoch+1) % cfg_run["val_interval"] == 0:
@@ -95,7 +94,7 @@ def _trainNval(dataset, dataloader, network, cfg_run, criterion, optimizer, devi
             val_loss = running_loss / len(dataset['val'])
             val_acc = running_corrects / len(dataset['val'])
 
-            print('[   VAL   ] Loss: {:.4f} Acc: {:.4f}'.format(val_loss, val_acc))
+            print(' [VAL] Loss: {:.4f} Acc: {:.4f}'.format(val_loss, val_acc), end='')
 
             # if validation accuracy is greater than best_acc, save that model
             if val_acc >= best_acc:
@@ -130,7 +129,7 @@ def _test(dataset, dataloader, network, criterion, device):
     test_loss = running_loss / len(dataset['test'])
     test_acc = running_corrects / len(dataset['test'])
 
-    print('[  TEST   ] Loss: {:.4f} Acc: {:.4f}'.format(test_loss, test_acc))
+    print('[TEST] Loss: {:.4f} Acc: {:.4f}'.format(test_loss, test_acc))
 
     return test_acc.item()
 

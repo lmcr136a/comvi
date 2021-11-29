@@ -20,4 +20,8 @@ def getResult(result):
     Print the result in nice form
     """
     
-    print("Test accuracy :", result)
+    print('\n############################################################')
+    print('#                                                          #')
+    print('#                  Test Accuracy : {:.4f}                  #'.format(result))
+    print('#                                                          #')
+    print('############################################################\n')

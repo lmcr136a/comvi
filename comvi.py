@@ -1,4 +1,6 @@
 import argparse
+import warnings
+warnings.filterwarnings('ignore')
 
 from util import configuration, getDataSet, getDataLoader, run, getResult
 from backbone import getNetwork

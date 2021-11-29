@@ -5,6 +5,12 @@ from skills.texture import GaborLayerLearnable
 def getResnet(cfg_network, n_class):
     name = cfg_network["backbone"]
     n_cv = cfg_network["n_cv"]
+    
+    print("[ NETWORK ]",end='')
+    for cfg in cfg_network:
+        print(" [{}] {}".format(cfg, cfg_network[cfg]),end='')
+    print()
+    
     try:
         return {
             "resnet18": resnet18(n_class, n_cv),
