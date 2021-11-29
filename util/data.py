@@ -26,7 +26,6 @@ def getDataSet(cfg_data):
 
     aug_config = cfg_data["train"]["augmentation"]
     resize = cfg_data["resize"]
-    
     train_transforms = [
             Resize((resize,resize)),
             RandomHorizontalFlip(),

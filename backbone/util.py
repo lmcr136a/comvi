@@ -31,6 +31,6 @@ def getNetwork(cfg_network, n_class):
             out_channels=resnet.first_layer_output_size,
             stride=resnet.first_layer_stride, 
             padding=resnet.first_layer_padding, 
-            kernels=resnet.first_layer_kernel_size,
+            kernel_size=resnet.first_layer_kernel_size,
         )
     return resnet
