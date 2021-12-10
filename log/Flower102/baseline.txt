@@ -1,0 +1,117 @@
+[ DATADIR ]  ./data/102flowers
+[ DATASET ] [ train ] N_CLASS: 102 , SIZE: 1020
+[ DATASET ] [ val ] N_CLASS: 102 , SIZE: 1020
+[ DATASET ] [ test ] N_CLASS: 102 , SIZE: 6149
+[ DEVICE  ] CUDA available
+[OPTIMIZER] ADAM FIXED [LearningRate]  5e-05
+
+====================== TRAINING START! =====================
+[Epoch 1/100] [TRAIN] Loss: 4.5609 Acc: 0.0255
+[Epoch 2/100] [TRAIN] Loss: 4.2950 Acc: 0.0922
+[Epoch 3/100] [TRAIN] Loss: 4.0688 Acc: 0.1265
+[Epoch 4/100] [TRAIN] Loss: 3.8632 Acc: 0.1686
+[Epoch 5/100] [TRAIN] Loss: 3.7036 Acc: 0.1833 [VAL] Loss: 3.7065 Acc: 0.1725
+[Epoch 6/100] [TRAIN] Loss: 3.5593 Acc: 0.2078
+[Epoch 7/100] [TRAIN] Loss: 3.4353 Acc: 0.2333
+[Epoch 8/100] [TRAIN] Loss: 3.3048 Acc: 0.2794
+[Epoch 9/100] [TRAIN] Loss: 3.2167 Acc: 0.2980
+[Epoch 10/100] [TRAIN] Loss: 3.1326 Acc: 0.3039 [VAL] Loss: 3.3352 Acc: 0.2500
+[Epoch 11/100] [TRAIN] Loss: 3.0218 Acc: 0.3324
+[Epoch 12/100] [TRAIN] Loss: 2.9312 Acc: 0.3569
+[Epoch 13/100] [TRAIN] Loss: 2.8557 Acc: 0.3725
+[Epoch 14/100] [TRAIN] Loss: 2.7909 Acc: 0.3755
+[Epoch 15/100] [TRAIN] Loss: 2.7023 Acc: 0.4108 [VAL] Loss: 3.0275 Acc: 0.2892
+[Epoch 16/100] [TRAIN] Loss: 2.6609 Acc: 0.3990
+[Epoch 17/100] [TRAIN] Loss: 2.5912 Acc: 0.4265
+[Epoch 18/100] [TRAIN] Loss: 2.5415 Acc: 0.4225
+[Epoch 19/100] [TRAIN] Loss: 2.4909 Acc: 0.4490
+[Epoch 20/100] [TRAIN] Loss: 2.4120 Acc: 0.4686 [VAL] Loss: 2.8612 Acc: 0.3147
+[Epoch 21/100] [TRAIN] Loss: 2.3901 Acc: 0.4696
+[Epoch 22/100] [TRAIN] Loss: 2.3251 Acc: 0.4873
+[Epoch 23/100] [TRAIN] Loss: 2.2732 Acc: 0.4931
+[Epoch 24/100] [TRAIN] Loss: 2.2279 Acc: 0.5157
+[Epoch 25/100] [TRAIN] Loss: 2.1507 Acc: 0.5324 [VAL] Loss: 2.7460 Acc: 0.3363
+[Epoch 26/100] [TRAIN] Loss: 2.1082 Acc: 0.5343
+[Epoch 27/100] [TRAIN] Loss: 2.1015 Acc: 0.5147
+[Epoch 28/100] [TRAIN] Loss: 2.0680 Acc: 0.5304
+[Epoch 29/100] [TRAIN] Loss: 1.9571 Acc: 0.5725
+[Epoch 30/100] [TRAIN] Loss: 1.9494 Acc: 0.5667 [VAL] Loss: 2.6713 Acc: 0.3441
+[Epoch 31/100] [TRAIN] Loss: 1.9041 Acc: 0.5824
+[Epoch 32/100] [TRAIN] Loss: 1.8770 Acc: 0.5794
+[Epoch 33/100] [TRAIN] Loss: 1.8618 Acc: 0.5657
+[Epoch 34/100] [TRAIN] Loss: 1.8170 Acc: 0.5980
+[Epoch 35/100] [TRAIN] Loss: 1.7820 Acc: 0.5931 [VAL] Loss: 2.7128 Acc: 0.3265
+[Epoch 36/100] [TRAIN] Loss: 1.7500 Acc: 0.6059
+[Epoch 37/100] [TRAIN] Loss: 1.6578 Acc: 0.6275
+[Epoch 38/100] [TRAIN] Loss: 1.6623 Acc: 0.6343
+[Epoch 39/100] [TRAIN] Loss: 1.6473 Acc: 0.6451
+[Epoch 40/100] [TRAIN] Loss: 1.5822 Acc: 0.6490 [VAL] Loss: 2.6527 Acc: 0.3510
+[Epoch 41/100] [TRAIN] Loss: 1.5838 Acc: 0.6569
+[Epoch 42/100] [TRAIN] Loss: 1.5414 Acc: 0.6657
+[Epoch 43/100] [TRAIN] Loss: 1.4760 Acc: 0.6873
+[Epoch 44/100] [TRAIN] Loss: 1.4558 Acc: 0.6833
+[Epoch 45/100] [TRAIN] Loss: 1.4274 Acc: 0.6853 [VAL] Loss: 2.5340 Acc: 0.3706
+[Epoch 46/100] [TRAIN] Loss: 1.3991 Acc: 0.6951
+[Epoch 47/100] [TRAIN] Loss: 1.3836 Acc: 0.7059
+[Epoch 48/100] [TRAIN] Loss: 1.3278 Acc: 0.7245
+[Epoch 49/100] [TRAIN] Loss: 1.3277 Acc: 0.7147
+[Epoch 50/100] [TRAIN] Loss: 1.3279 Acc: 0.7127 [VAL] Loss: 2.6086 Acc: 0.3676
+[Epoch 51/100] [TRAIN] Loss: 1.2695 Acc: 0.7206
+[Epoch 52/100] [TRAIN] Loss: 1.2532 Acc: 0.7402
+[Epoch 53/100] [TRAIN] Loss: 1.2436 Acc: 0.7333
+[Epoch 54/100] [TRAIN] Loss: 1.2226 Acc: 0.7471
+[Epoch 55/100] [TRAIN] Loss: 1.1907 Acc: 0.7412 [VAL] Loss: 2.4902 Acc: 0.3873
+[Epoch 56/100] [TRAIN] Loss: 1.1048 Acc: 0.7824
+[Epoch 57/100] [TRAIN] Loss: 1.1132 Acc: 0.7765
+[Epoch 58/100] [TRAIN] Loss: 1.0656 Acc: 0.7892
+[Epoch 59/100] [TRAIN] Loss: 1.0673 Acc: 0.7941
+[Epoch 60/100] [TRAIN] Loss: 1.0474 Acc: 0.8059 [VAL] Loss: 2.4707 Acc: 0.3990
+[Epoch 61/100] [TRAIN] Loss: 1.0276 Acc: 0.7971
+[Epoch 62/100] [TRAIN] Loss: 0.9823 Acc: 0.8098
+[Epoch 63/100] [TRAIN] Loss: 0.9798 Acc: 0.8167
+[Epoch 64/100] [TRAIN] Loss: 1.0007 Acc: 0.8088
+[Epoch 65/100] [TRAIN] Loss: 0.9312 Acc: 0.8245 [VAL] Loss: 2.5362 Acc: 0.3941
+[Epoch 66/100] [TRAIN] Loss: 0.8791 Acc: 0.8471
+[Epoch 67/100] [TRAIN] Loss: 0.8854 Acc: 0.8441
+[Epoch 68/100] [TRAIN] Loss: 0.8639 Acc: 0.8431
+[Epoch 69/100] [TRAIN] Loss: 0.8319 Acc: 0.8588
+[Epoch 70/100] [TRAIN] Loss: 0.8575 Acc: 0.8431 [VAL] Loss: 2.5054 Acc: 0.3922
+[Epoch 71/100] [TRAIN] Loss: 0.8316 Acc: 0.8569
+[Epoch 72/100] [TRAIN] Loss: 0.7987 Acc: 0.8578
+[Epoch 73/100] [TRAIN] Loss: 0.8080 Acc: 0.8539
+[Epoch 74/100] [TRAIN] Loss: 0.7506 Acc: 0.8686
+[Epoch 75/100] [TRAIN] Loss: 0.7633 Acc: 0.8745 [VAL] Loss: 2.5608 Acc: 0.3843
+[Epoch 76/100] [TRAIN] Loss: 0.7273 Acc: 0.8735
+[Epoch 77/100] [TRAIN] Loss: 0.7016 Acc: 0.8882
+[Epoch 78/100] [TRAIN] Loss: 0.6886 Acc: 0.8863
+[Epoch 79/100] [TRAIN] Loss: 0.6407 Acc: 0.9118
+[Epoch 80/100] [TRAIN] Loss: 0.6224 Acc: 0.9088 [VAL] Loss: 2.4833 Acc: 0.4147
+[Epoch 81/100] [TRAIN] Loss: 0.6483 Acc: 0.8922
+[Epoch 82/100] [TRAIN] Loss: 0.6462 Acc: 0.8961
+[Epoch 83/100] [TRAIN] Loss: 0.6077 Acc: 0.9108
+[Epoch 84/100] [TRAIN] Loss: 0.6039 Acc: 0.9127
+[Epoch 85/100] [TRAIN] Loss: 0.5671 Acc: 0.9235 [VAL] Loss: 2.4644 Acc: 0.4235
+[Epoch 86/100] [TRAIN] Loss: 0.5789 Acc: 0.9118
+[Epoch 87/100] [TRAIN] Loss: 0.5414 Acc: 0.9304
+[Epoch 88/100] [TRAIN] Loss: 0.5078 Acc: 0.9382
+[Epoch 89/100] [TRAIN] Loss: 0.5050 Acc: 0.9412
+[Epoch 90/100] [TRAIN] Loss: 0.4952 Acc: 0.9441 [VAL] Loss: 2.5229 Acc: 0.4206
+[Epoch 91/100] [TRAIN] Loss: 0.4998 Acc: 0.9471
+[Epoch 92/100] [TRAIN] Loss: 0.4934 Acc: 0.9373
+[Epoch 93/100] [TRAIN] Loss: 0.5053 Acc: 0.9275
+[Epoch 94/100] [TRAIN] Loss: 0.4424 Acc: 0.9539
+[Epoch 95/100] [TRAIN] Loss: 0.4369 Acc: 0.9520 [VAL] Loss: 2.4912 Acc: 0.4314
+[Epoch 96/100] [TRAIN] Loss: 0.4145 Acc: 0.9539
+[Epoch 97/100] [TRAIN] Loss: 0.4043 Acc: 0.9500
+[Epoch 98/100] [TRAIN] Loss: 0.3848 Acc: 0.9598
+[Epoch 99/100] [TRAIN] Loss: 0.3977 Acc: 0.9539
+[Epoch 100/100] [TRAIN] Loss: 0.3878 Acc: 0.9618 [VAL] Loss: 2.5590 Acc: 0.4206
+[TEST] Loss: 2.7382 Acc: 0.4004
+===================== TRAINING FINISH! ====================
+
+############################################################
+#                                                          #
+#                  Test Accuracy : 0.4004                  #
+#                                                          #
+############################################################
+

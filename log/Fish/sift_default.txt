@@ -1,0 +1,117 @@
+[ DATADIR ]  ./data/Fish
+[ AUGMENT ] [resize] 512 [sift] default [edge] None [gabor] None [perspective] None
+[ DATASET ] [train] n:9, size:258 [val] n:9, size:86 [test] n:9, size:86
+[ NETWORK ] [backbone] resnet18 [n_cv] 1 [gabor] None
+[ DEVICE  ] CUDA available
+[OPTIMIZER] ADAM FIXED [LearningRate]  5e-05
+
+====================== TRAINING START! =====================
+[Epoch 1/100] [TRAIN] Loss: 2.1406 Acc: 0.1783
+[Epoch 2/100] [TRAIN] Loss: 1.8781 Acc: 0.4109
+[Epoch 3/100] [TRAIN] Loss: 1.6353 Acc: 0.4690
+[Epoch 4/100] [TRAIN] Loss: 1.4765 Acc: 0.4884
+[Epoch 5/100] [TRAIN] Loss: 1.4256 Acc: 0.5504 [VAL] Loss: 2.7921 Acc: 0.3023
+[Epoch 6/100] [TRAIN] Loss: 1.3093 Acc: 0.5698
+[Epoch 7/100] [TRAIN] Loss: 1.2367 Acc: 0.6008
+[Epoch 8/100] [TRAIN] Loss: 1.1712 Acc: 0.6628
+[Epoch 9/100] [TRAIN] Loss: 1.1259 Acc: 0.7054
+[Epoch 10/100] [TRAIN] Loss: 1.0466 Acc: 0.7442 [VAL] Loss: 1.4650 Acc: 0.4535
+[Epoch 11/100] [TRAIN] Loss: 1.0000 Acc: 0.7636
+[Epoch 12/100] [TRAIN] Loss: 0.9581 Acc: 0.8023
+[Epoch 13/100] [TRAIN] Loss: 0.8886 Acc: 0.7713
+[Epoch 14/100] [TRAIN] Loss: 0.8344 Acc: 0.8295
+[Epoch 15/100] [TRAIN] Loss: 0.8202 Acc: 0.8256 [VAL] Loss: 1.1423 Acc: 0.5698
+[Epoch 16/100] [TRAIN] Loss: 0.7183 Acc: 0.8411
+[Epoch 17/100] [TRAIN] Loss: 0.7256 Acc: 0.8411
+[Epoch 18/100] [TRAIN] Loss: 0.6652 Acc: 0.8760
+[Epoch 19/100] [TRAIN] Loss: 0.6622 Acc: 0.8992
+[Epoch 20/100] [TRAIN] Loss: 0.6082 Acc: 0.8953 [VAL] Loss: 1.0553 Acc: 0.6163
+[Epoch 21/100] [TRAIN] Loss: 0.5758 Acc: 0.8915
+[Epoch 22/100] [TRAIN] Loss: 0.5383 Acc: 0.9380
+[Epoch 23/100] [TRAIN] Loss: 0.5335 Acc: 0.9302
+[Epoch 24/100] [TRAIN] Loss: 0.4855 Acc: 0.9225
+[Epoch 25/100] [TRAIN] Loss: 0.4789 Acc: 0.9496 [VAL] Loss: 1.0883 Acc: 0.6047
+[Epoch 26/100] [TRAIN] Loss: 0.4394 Acc: 0.9147
+[Epoch 27/100] [TRAIN] Loss: 0.4225 Acc: 0.9574
+[Epoch 28/100] [TRAIN] Loss: 0.3836 Acc: 0.9574
+[Epoch 29/100] [TRAIN] Loss: 0.3863 Acc: 0.9535
+[Epoch 30/100] [TRAIN] Loss: 0.3513 Acc: 0.9302 [VAL] Loss: 0.9653 Acc: 0.6860
+[Epoch 31/100] [TRAIN] Loss: 0.3633 Acc: 0.9302
+[Epoch 32/100] [TRAIN] Loss: 0.3303 Acc: 0.9496
+[Epoch 33/100] [TRAIN] Loss: 0.3266 Acc: 0.9574
+[Epoch 34/100] [TRAIN] Loss: 0.3114 Acc: 0.9612
+[Epoch 35/100] [TRAIN] Loss: 0.3045 Acc: 0.9806 [VAL] Loss: 1.0165 Acc: 0.6395
+[Epoch 36/100] [TRAIN] Loss: 0.2931 Acc: 0.9729
+[Epoch 37/100] [TRAIN] Loss: 0.3029 Acc: 0.9574
+[Epoch 38/100] [TRAIN] Loss: 0.2622 Acc: 0.9690
+[Epoch 39/100] [TRAIN] Loss: 0.3398 Acc: 0.9380
+[Epoch 40/100] [TRAIN] Loss: 0.2431 Acc: 0.9729 [VAL] Loss: 0.7523 Acc: 0.7326
+[Epoch 41/100] [TRAIN] Loss: 0.2580 Acc: 0.9729
+[Epoch 42/100] [TRAIN] Loss: 0.2777 Acc: 0.9690
+[Epoch 43/100] [TRAIN] Loss: 0.2443 Acc: 0.9729
+[Epoch 44/100] [TRAIN] Loss: 0.2029 Acc: 0.9845
+[Epoch 45/100] [TRAIN] Loss: 0.2756 Acc: 0.9651 [VAL] Loss: 0.6843 Acc: 0.7791
+[Epoch 46/100] [TRAIN] Loss: 0.1929 Acc: 0.9922
+[Epoch 47/100] [TRAIN] Loss: 0.2245 Acc: 0.9690
+[Epoch 48/100] [TRAIN] Loss: 0.2099 Acc: 0.9651
+[Epoch 49/100] [TRAIN] Loss: 0.2315 Acc: 0.9845
+[Epoch 50/100] [TRAIN] Loss: 0.2048 Acc: 0.9806 [VAL] Loss: 0.7939 Acc: 0.7442
+[Epoch 51/100] [TRAIN] Loss: 0.2218 Acc: 0.9729
+[Epoch 52/100] [TRAIN] Loss: 0.2498 Acc: 0.9651
+[Epoch 53/100] [TRAIN] Loss: 0.2273 Acc: 0.9690
+[Epoch 54/100] [TRAIN] Loss: 0.1980 Acc: 0.9690
+[Epoch 55/100] [TRAIN] Loss: 0.1807 Acc: 0.9884 [VAL] Loss: 0.7283 Acc: 0.6977
+[Epoch 56/100] [TRAIN] Loss: 0.1692 Acc: 0.9806
+[Epoch 57/100] [TRAIN] Loss: 0.1525 Acc: 1.0000
+[Epoch 58/100] [TRAIN] Loss: 0.1407 Acc: 0.9922
+[Epoch 59/100] [TRAIN] Loss: 0.1528 Acc: 0.9922
+[Epoch 60/100] [TRAIN] Loss: 0.1544 Acc: 0.9884 [VAL] Loss: 0.5903 Acc: 0.7907
+[Epoch 61/100] [TRAIN] Loss: 0.1499 Acc: 0.9922
+[Epoch 62/100] [TRAIN] Loss: 0.1611 Acc: 0.9884
+[Epoch 63/100] [TRAIN] Loss: 0.1438 Acc: 0.9961
+[Epoch 64/100] [TRAIN] Loss: 0.1326 Acc: 0.9922
+[Epoch 65/100] [TRAIN] Loss: 0.1583 Acc: 0.9884 [VAL] Loss: 0.7458 Acc: 0.7791
+[Epoch 66/100] [TRAIN] Loss: 0.1736 Acc: 0.9690
+[Epoch 67/100] [TRAIN] Loss: 0.1978 Acc: 0.9690
+[Epoch 68/100] [TRAIN] Loss: 0.1735 Acc: 0.9767
+[Epoch 69/100] [TRAIN] Loss: 0.1344 Acc: 0.9922
+[Epoch 70/100] [TRAIN] Loss: 0.1843 Acc: 0.9651 [VAL] Loss: 0.8974 Acc: 0.6512
+[Epoch 71/100] [TRAIN] Loss: 0.1265 Acc: 0.9922
+[Epoch 72/100] [TRAIN] Loss: 0.1155 Acc: 0.9922
+[Epoch 73/100] [TRAIN] Loss: 0.1728 Acc: 0.9651
+[Epoch 74/100] [TRAIN] Loss: 0.1231 Acc: 0.9922
+[Epoch 75/100] [TRAIN] Loss: 0.1209 Acc: 0.9845 [VAL] Loss: 0.7483 Acc: 0.7442
+[Epoch 76/100] [TRAIN] Loss: 0.1510 Acc: 0.9845
+[Epoch 77/100] [TRAIN] Loss: 0.2267 Acc: 0.9690
+[Epoch 78/100] [TRAIN] Loss: 0.2024 Acc: 0.9651
+[Epoch 79/100] [TRAIN] Loss: 0.1842 Acc: 0.9651
+[Epoch 80/100] [TRAIN] Loss: 0.1802 Acc: 0.9729 [VAL] Loss: 0.8160 Acc: 0.7209
+[Epoch 81/100] [TRAIN] Loss: 0.1379 Acc: 0.9806
+[Epoch 82/100] [TRAIN] Loss: 0.1775 Acc: 0.9574
+[Epoch 83/100] [TRAIN] Loss: 0.1510 Acc: 0.9729
+[Epoch 84/100] [TRAIN] Loss: 0.1255 Acc: 0.9922
+[Epoch 85/100] [TRAIN] Loss: 0.1220 Acc: 0.9961 [VAL] Loss: 0.7885 Acc: 0.7442
+[Epoch 86/100] [TRAIN] Loss: 0.1022 Acc: 0.9922
+[Epoch 87/100] [TRAIN] Loss: 0.2461 Acc: 0.9574
+[Epoch 88/100] [TRAIN] Loss: 0.1732 Acc: 0.9729
+[Epoch 89/100] [TRAIN] Loss: 0.1756 Acc: 0.9612
+[Epoch 90/100] [TRAIN] Loss: 0.1264 Acc: 0.9806 [VAL] Loss: 0.7106 Acc: 0.7558
+[Epoch 91/100] [TRAIN] Loss: 0.1256 Acc: 0.9806
+[Epoch 92/100] [TRAIN] Loss: 0.1194 Acc: 0.9884
+[Epoch 93/100] [TRAIN] Loss: 0.1294 Acc: 0.9884
+[Epoch 94/100] [TRAIN] Loss: 0.1490 Acc: 0.9767
+[Epoch 95/100] [TRAIN] Loss: 0.1038 Acc: 0.9961 [VAL] Loss: 0.7845 Acc: 0.7326
+[Epoch 96/100] [TRAIN] Loss: 0.1054 Acc: 0.9922
+[Epoch 97/100] [TRAIN] Loss: 0.0799 Acc: 1.0000
+[Epoch 98/100] [TRAIN] Loss: 0.0910 Acc: 0.9922
+[Epoch 99/100] [TRAIN] Loss: 0.0913 Acc: 0.9961
+[Epoch 100/100] [TRAIN] Loss: 0.0762 Acc: 0.9961 [VAL] Loss: 0.8783 Acc: 0.7326
+[TEST] Loss: 0.6920 Acc: 0.7674
+===================== TRAINING FINISH! ====================
+
+############################################################
+#                                                          #
+#                  Test Accuracy : 0.7674                  #
+#                                                          #
+############################################################
+
