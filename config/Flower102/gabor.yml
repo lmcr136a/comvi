@@ -1,0 +1,34 @@
+data:
+  dir: "./data/102flowers"
+  # Resize factor
+  resize: 512
+  # Sampling options for dataloader
+  train:
+    augmentation:
+      # if there is neccesary to optimize augmentation, we will use this
+      sift: # img_in_sift_circle  # img_in_sift_circle   or   sift_img   or   None
+      edge: 
+      gabor: True
+    shuffle: True
+    batch_size: 32
+    n_workers: 2
+  val:
+    shuffle: False
+    batch_size: 1
+    n_workers: 1
+  test:
+    shuffle: False
+    batch_size: 1
+    n_workers: 1
+
+network:
+  backbone: "resnet18"
+  n_cv: 0
+
+run:
+  epoch: 100
+  val_interval: 5
+  optimizer:
+    name: "adam"
+    lr: 5.0e-5
+  scheduler: # use this if neccessary
