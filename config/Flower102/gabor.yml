@@ -1,13 +1,17 @@
 data:
-  dir: "./data_for_test/stl10_small"
+  dir: "./data/102flowers"
+  # Resize factor
+  resize: 512
   # Sampling options for dataloader
   train:
     augmentation:
       # if there is neccesary to optimize augmentation, we will use this
-      edge: [150,200]
+      sift: # img_in_sift_circle  # img_in_sift_circle   or   sift_img   or   None
+      edge: 
+      gabor: True
     shuffle: True
-    batch_size: 10
-    n_workers: 1
+    batch_size: 32
+    n_workers: 2
   val:
     shuffle: False
     batch_size: 1
@@ -19,11 +23,11 @@ data:
 
 network:
   backbone: "resnet18"
-  n_cv: 2
+  n_cv: 0
 
 run:
-  epoch: 6
-  val_interval: 2
+  epoch: 100
+  val_interval: 5
   optimizer:
     name: "adam"
     lr: 5.0e-5

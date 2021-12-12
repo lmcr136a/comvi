@@ -3,6 +3,7 @@ import cv2 as cv
 import torch
 from PIL import Image
 from matplotlib import pyplot as plt
+import os
 
 class EDGE(object):
     """
@@ -20,6 +21,7 @@ class EDGE(object):
     def __call__(self,torch_img):
         img = torch_img[0:3,:,:].detach().numpy().astype(np.uint8)
         edge = cv.Canny(img.reshape(img.shape[1],img.shape[2],img.shape[0]),self.lthr,self.hthr)
+        edge = (edge-edge.min())/255
         edge = torch.Tensor(edge)
         edge = torch.unsqueeze(edge,0)
         return torch.cat((torch_img, edge),dim=0)

@@ -55,12 +55,9 @@ def getDataSet(cfg_data):
         val_transforms.append(EDGE(lthr=aug_config["edge"][0],hthr=aug_config["edge"][1]))
 
     if aug_config["gabor"]:
-        train_transforms.append(GABOR(ksize1 = aug_config["gabor"]["ksize1"],ksize2 = aug_config["gabor"]["ksize2"], sigma = aug_config["gabor"]["sigma"], theta = aug_config["gabor"]["theta"],
-                                lambd = aug_config["gabor"]["lambd"], gamma = aug_config["gabor"]["gamma"], psi = aug_config["gabor"]["psi"]))
-        test_transforms.append(GABOR(ksize1 = aug_config["gabor"]["ksize1"],ksize2 = aug_config["gabor"]["ksize2"], sigma = aug_config["gabor"]["sigma"], theta = aug_config["gabor"]["theta"],
-                                lambd = aug_config["gabor"]["lambd"], gamma = aug_config["gabor"]["gamma"], psi = aug_config["gabor"]["psi"]))
-        val_transforms.append(GABOR(ksize1 = aug_config["gabor"]["ksize1"],ksize2 = aug_config["gabor"]["ksize2"], sigma = aug_config["gabor"]["sigma"], theta = aug_config["gabor"]["theta"],
-                                lambd = aug_config["gabor"]["lambd"], gamma = aug_config["gabor"]["gamma"], psi = aug_config["gabor"]["psi"]))
+        train_transforms.append(GABOR())
+        test_transforms.append(GABOR())
+        val_transforms.append(GABOR())
 
     preprocess = {
         'train': Compose(train_transforms),

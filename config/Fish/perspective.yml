@@ -1,0 +1,34 @@
+data:
+  dir: "./data/Fish" # directory path or "CIFAR10" or "CIFAR100"
+  resize: 512 # Resize factor, integer number
+  # Sampling options for dataloader
+  train:
+    augmentation:
+      sift:   # circle   or   default   or   blur_circle
+      edge: 
+      gabor: 
+      perspective: True # True or False
+    shuffle: True
+    batch_size: 32
+    n_workers: 2
+  val:
+    shuffle: False
+    batch_size: 1
+    n_workers: 1
+  test:
+    shuffle: False
+    batch_size: 1
+    n_workers: 1
+
+network:
+  backbone: "resnet18"
+  n_cv: 0
+  gabor:
+
+run:
+  epoch: 100
+  val_interval: 5
+  optimizer:
+    name: "adam"
+    lr: 5.0e-5
+  scheduler: # use this if neccessary

@@ -1,3 +1,12 @@
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy import ndimage as ndi
+
+from skimage import data
+from skimage.util import img_as_float
+from skimage.filters import gabor_kernel
+from skimage import color
+
 import numpy as np
 import cv2 as cv
 import torch
@@ -9,35 +18,37 @@ import time
 import os 
 
 
-"""
-    gabor filter explanation:
-    http://www.cs.rug.nl/~imaging/simplecell.html
-    ** 채널 3개 증가
-    Args:
-        kszie : tuple. kernel size
-        sigma : double sigma
-        theta : gabor filter 방향(radian)
-        gamma : gaussian의 elipcity결정    
-        psi : phase offset
-        ktype : CV_32F or CV_64F
-"""
-class GABOR(object):
-    def __init__(self,ksize1=50,ksize2 = 50,sigma=5,theta=0,lambd=10,gamma=1,psi=0,ktype=cv.CV_64F):
-        self.ksize = (ksize1,ksize2)
-        self.sigma = sigma
-        self.theta = theta
-        self.lambd = lambd
-        self.gamma = gamma        
-        self.psi = psi
-        self.ktype = ktype
+'''
+https://scikit-image.org/docs/dev/auto_examples/features_detection/plot_gabor.html
 
+© Copyright the scikit-image development team. Created using Bootstrap and Sphinx.
+
+'''
+
+def power(image, kernel):
+    return np.sqrt(ndi.convolve(image, np.real(kernel), mode='wrap')**2 
+                + ndi.convolve(image, np.imag(kernel), mode='wrap')**2)
+
+class GABOR(object):
+    def __init__(self):
+        pass
     def __call__(self,torch_img):
+        #get image and reshape
         img = torch_img[0:3,:,:].detach().numpy().astype(np.uint8)
-        kernel = cv.getGaborKernel(self.ksize, self.sigma, self.theta, self.lambd,self.gamma, self.psi, self.ktype)
-        tex = cv.filter2D(img, -1, kernel)
-        tex = torch.Tensor(tex)
-        tmp = torch.cat((torch_img, tex),dim=0)
-        return tmp
+        img = img.reshape(img.shape[1],img.shape[2],img.shape[0])
+        #gray scale change + normalization
+        img_gray = color.rgb2gray(img)
+        #gaboring
+        results = torch_img
+        for theta in (0,1,2,3):
+            theta = theta / 4. * np.pi
+            for frequency in (0.3,0.5):
+                kernel = gabor_kernel(frequency, theta=theta, sigma_x = 1, sigma_y = 1)
+                result = power(img_gray, kernel)
+                result = torch.Tensor(result)
+                result = torch.unsqueeze(result,0)
+                results = torch.cat((results, result),dim=0)
+        return results
 
 
 class GaborLayerLearnable(nn.Module):
@@ -162,14 +173,17 @@ class GaborLayerLearnable(nn.Module):
 
 
 if __name__ == '__main__':
-    gabor = GABOR((21,21), 5, 1, 10, 1, 0, cv.CV_64F)
+    gabor = GABOR()
     sample_image = Image.open("data_for_test/testimg.jpg")
     sample_image = torch.Tensor(np.array(sample_image))
     shape = sample_image.shape
     sample_image = sample_image.reshape(shape[2],shape[0],shape[1])
     tex = gabor(sample_image)
-    tex = tex.reshape(tex.shape[1],tex.shape[2],tex.shape[0])
-
-    plt.figure()
-    plt.imshow(tex[:,:,3:])
-    plt.show()
+    tex = tex.numpy()
+    res = os.path.join("./","testimge")
+    os.makedirs(res,exist_ok=True)
+    for i in range(8*3*3):
+        imagefile = os.path.join(res,str(i)+'.jpg')
+        tmp_tex = tex[i+3,:,:] 
+        tmp_tex = (tmp_tex-tmp_tex.min())*255/(tmp_tex.max()-tmp_tex.min())
+        cv.imwrite(imagefile,tmp_tex[:,:])
